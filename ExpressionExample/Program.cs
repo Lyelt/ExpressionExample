@@ -20,7 +20,7 @@ namespace ExpressionExample
                 List<string> categoryResults = expressionEval.EvaluateExpressions(ruleResults);
             }
 
-            Console.ReadKey();
+            Console.ReadLine();
         }
 
         static List<RelevantObject> GetRelevantObjects()
