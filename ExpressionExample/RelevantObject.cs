@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ExpressionExample
 {
-    internal class RelevantObject
+    public class RelevantObject
     {
+        public Guid Id { get; set; }
         public string CarMake { get; set; }
 
         public int CarYear { get; set; }

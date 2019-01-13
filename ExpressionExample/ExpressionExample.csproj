@@ -42,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Condition\ICondition.cs" />
+    <Compile Include="Condition\PersonLovesDancingCondition.cs" />
+    <Compile Include="Condition\PersonLovesPeanutButterCondition.cs" />
     <Compile Include="ExpressionEvaluator.cs" />
     <Compile Include="MyExpression.cs" />
     <Compile Include="Program.cs" />
