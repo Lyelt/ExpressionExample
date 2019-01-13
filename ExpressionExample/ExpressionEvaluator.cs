@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.CodeAnalysis.Scripting;
+using System;
 using System.Collections.Generic;
 
 namespace ExpressionExample
@@ -15,23 +17,44 @@ namespace ExpressionExample
             _expressions.Add(new MyExpression("C3 && (P1 || P2) && (!C1 || P1)", "Person Loves Dancing"));
         }
 
-        internal List<string> EvaluateExpressions(Dictionary<string, bool> ruleResults)
+        internal void EvaluateExpressions(Dictionary<string, bool> ruleResults)
         {
-            var results = new List<string>();
-
             Console.WriteLine("---- Here are the rule results:");
             foreach (var result in ruleResults)
                 Console.WriteLine($"{result.Key} : {result.Value}");
 
             Console.WriteLine();
             Console.WriteLine();
-            // This is where I am at a loss.
-            // I have a list of expressions that are currently made up of just Rule IDs and logical operators.
-            // I also have a bunch of rules that have been evaluated.
-            // I need to turn my expression into something that can be evaluated, given these rule results.
+            foreach (var expression in _expressions)
+            {
+                try
+                {
+                    Script script = null;
 
+                    foreach (var rr in ruleResults)
+                    {
+                        if (script == null)
+                            script = CSharpScript.Create<bool>(CreateBooleanVariable(rr.Key, rr.Value));
+                        else
+                            script = script.ContinueWith(CreateBooleanVariable(rr.Key, rr.Value));
+                    }
 
-            return results;
+                    script = script.ContinueWith(expression.ExpressionString);
+                    var result = script.RunAsync().Result;
+
+                    Console.WriteLine($"Following script was run: [{result.Script.Code}].");
+                    Console.WriteLine($"Expression [{expression.ExpressionString}] result is [{result.ReturnValue}]. Therefore: [{((bool)result.ReturnValue ? expression.ResultString : "result not relevant")}]");
+                }
+                catch (Exception ex)
+                {
+                    Console.Error.WriteLine(ex);
+                }
+            }
+        }
+
+        private string CreateBooleanVariable(string variableName, bool value)
+        {
+            return $"bool {variableName} = {value.ToString().ToLower()};";
         }
     }
 }

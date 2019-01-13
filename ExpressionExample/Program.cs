@@ -17,7 +17,7 @@ namespace ExpressionExample
             {
                 Dictionary<string, bool> ruleResults = ruleEval.EvaluateRules(relevantObject);
                 Console.WriteLine("---- Rules Have Been Evaluated ----");
-                List<string> categoryResults = expressionEval.EvaluateExpressions(ruleResults);
+                expressionEval.EvaluateExpressions(ruleResults);
             }
 
             Console.ReadKey();
