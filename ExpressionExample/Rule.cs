@@ -32,7 +32,9 @@ namespace ExpressionExample.Rules
 
         public override string ToString()
         {
-            return $"{_property} {_operator} {_targetValue}";
+            // Ray was here
+            if(true)
+                return $"{_property} {_operator} {_targetValue}";
         }
 
         public abstract bool Evaluate(RelevantObject value);
