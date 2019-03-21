@@ -159,7 +159,7 @@
     <Compile Include="RuleEvaluator.cs" />
     <Compile Include="Rulez\CarRule.cs" />
     <Compile Include="Rulez\PersonRule.cs" />
-    <Compile Include="Rulez\Rule.cs" />
+    <Compile Include="Rule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
